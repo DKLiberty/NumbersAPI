@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SavedFactsScreen extends StatefulWidget {
   const SavedFactsScreen({super.key});
@@ -13,6 +14,22 @@ class _SavedFactsScreenState extends State<SavedFactsScreen> {
   @override
   void initState() {
     super.initState();
+    _loadSavedFacts();
+  }
+
+  Future<void> _loadSavedFacts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _savedFacts = prefs.getStringList('saved_facts') ?? [];
+    });
+  }
+
+  Future<void> _clearFacts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('saved_facts');
+    setState(() {
+      _savedFacts.clear();
+    });
   }
 
   @override
@@ -32,6 +49,10 @@ class _SavedFactsScreenState extends State<SavedFactsScreen> {
                 );
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _clearFacts,
+        child: const Icon(Icons.delete),
+      ),
     );
   }
 }

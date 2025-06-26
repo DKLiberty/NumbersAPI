@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'saved_facts_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -69,6 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _saveFact() async {
+    if (_result.isNotEmpty) {
+      final prefs = await SharedPreferences.getInstance();
+      List<String> savedFacts = prefs.getStringList('saved_facts') ?? [];
+      savedFacts.add('$_numberInput ($_selectedType): $_result');
+      await prefs.setStringList('saved_facts', savedFacts);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Факт сохранён!')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,6 +146,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 10),
             if (_result.isNotEmpty)
+              ElevatedButton(
+                onPressed: _saveFact,
+                child: const Text('Сохранить'),
+              ),
             const SizedBox(height: 10),
             Expanded(
               child: SingleChildScrollView(
