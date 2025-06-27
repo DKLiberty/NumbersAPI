@@ -35,7 +35,18 @@ class _SavedFactsScreenState extends State<SavedFactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Сохранённые факты')),
+      backgroundColor: Colors.blue[700],
+      appBar: AppBar(
+        title: const Text('Сохранённые факты'),
+        backgroundColor: Colors.blue[900]!,
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+      ),
       body: _savedFacts.isEmpty
           ? const Center(child: Text('Нет сохранённых фактов'))
           : ListView.builder(
@@ -43,8 +54,18 @@ class _SavedFactsScreenState extends State<SavedFactsScreen> {
               itemCount: _savedFacts.length,
               itemBuilder: (context, index) {
                 return Card(
+                  color: Colors.blue[800],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0)
+                  ),
                   child: ListTile(
-                    title: Text(_savedFacts[index]),
+                    title: Text(
+                      _savedFacts[index],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16
+                      ),
+                    ),
                   ),
                 );
               },

@@ -3,11 +3,11 @@ import 'screens/home_screen.dart';
 import 'screens/saved_facts_screen.dart';
 
 void main() {
-  runApp(const NumberTriviaApp());
+  runApp(const NumberAPIApp());
 }
 
-class NumberTriviaApp extends StatelessWidget {
-  const NumberTriviaApp({super.key});
+class NumberAPIApp extends StatelessWidget {
+  const NumberAPIApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +19,9 @@ class NumberTriviaApp extends StatelessWidget {
       ),
       initialRoute: '/home',
       routes: {
-        '/home': (context) => const HomeScreen(), // WidgetBuilder sifatida funksiya
-        '/saved': (context) => const SavedFactsScreen(), // WidgetBuilder sifatida funksiya
-      },
+        '/home': (context) => const HomeScreen(),
+        '/saved': (context) => const SavedFactsScreen(),
+      }
     );
   }
 }
